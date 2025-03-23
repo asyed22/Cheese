@@ -1,6 +1,6 @@
 Number of cheeses using pasteurized milk: 0
 Number of cheeses using raw milk: 0
-Number of organic cheeses with moisture > 41.0%: 26
+Number of organic cheeses with moisture > 41.0%: 0
 Most common milk type: 0
-Average moisture percent: 47.069747081712066
-Number of lactic cheeses: 15
+Average moisture percent: NaN
+Number of lactic cheeses: 0

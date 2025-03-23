@@ -1,58 +1,65 @@
 package com.csc;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCheeseAnalyzer {
 
     @Test
     public void testCheeseQuality() {
-        // Example test case
-        boolean isCheeseGood = true; // Replace with actual logic
-        Assert.assertTrue("Cheese quality should be good", isCheeseGood);
+        CheeseAnalyzer analyzer = new CheeseAnalyzer();
+        String cheeseData = "This cheese is of high quality.";
+        boolean isCheeseGood = analyzer.checkQuality(cheeseData);
+        assertTrue(isCheeseGood, "Cheese quality should be good");
     }
 
     @Test
     public void testCheeseAging() {
-        // Example test case
-        boolean isCheeseAgedProperly = true; // Replace with actual logic
-        Assert.assertTrue("Cheese should be aged properly", isCheeseAgedProperly);
+        CheeseAnalyzer analyzer = new CheeseAnalyzer();
+        String cheeseData = "This cheese has been aged for 12 months.";
+        boolean isCheeseAgedProperly = analyzer.checkAging(cheeseData);
+        assertTrue(isCheeseAgedProperly, "Cheese should be aged properly");
     }
 
     @Test
     public void testCheeseFlavor() {
-        // Example test case
-        boolean isFlavorGood = true; // Replace with actual logic
-        Assert.assertTrue("Cheese flavor should be good", isFlavorGood);
+        CheeseAnalyzer analyzer = new CheeseAnalyzer();
+        String cheeseData = "This cheese has a rich and creamy flavor.";
+        boolean isFlavorGood = analyzer.checkFlavor(cheeseData);
+        assertTrue(isFlavorGood, "Cheese flavor should be good");
     }
 
     @Test
     public void testCheeseTexture() {
-        // Example test case
-        boolean isTextureGood = true; // Replace with actual logic
-        Assert.assertTrue("Cheese texture should be good", isTextureGood);
+        CheeseAnalyzer analyzer = new CheeseAnalyzer();
+        String cheeseData = "This cheese has a smooth texture.";
+        boolean isTextureGood = analyzer.checkTexture(cheeseData);
+        assertTrue(isTextureGood, "Cheese texture should be good");
     }
 
     @Test
     public void testCheeseColor() {
-        // Example test case
-        boolean isColorGood = true; // Replace with actual logic
-        Assert.assertTrue("Cheese color should be good", isColorGood);
+        CheeseAnalyzer analyzer = new CheeseAnalyzer();
+        String cheeseData = "This cheese has a golden color.";
+        boolean isColorGood = analyzer.checkColor(cheeseData);
+        assertTrue(isColorGood, "Cheese color should be good");
     }
 
     @Test
     public void testCheeseSmell() {
-        // Example test case
-        boolean isSmellGood = true; // Replace with actual logic
-        Assert.assertTrue("Cheese smell should be good", isSmellGood);
+        CheeseAnalyzer analyzer = new CheeseAnalyzer();
+        String cheeseData = "This cheese has a pleasant smell.";
+        boolean isSmellGood = analyzer.checkSmell(cheeseData);
+        assertTrue(isSmellGood, "Cheese smell should be good");
     }
 
     @Test
     public void testCheeseFailCase() {
-        // Example of a failing test case
-        boolean shouldFail = false; // Replace with actual logic
+        CheeseAnalyzer analyzer = new CheeseAnalyzer();
+        String cheeseData = "This cheese is spoiled.";
+        boolean shouldFail = analyzer.checkQuality(cheeseData);
         if (!shouldFail) {
-            Assert.fail("This test case should fail");
+            fail("This test case should fail because the cheese is spoiled");
         }
     }
 }

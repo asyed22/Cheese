@@ -6,9 +6,31 @@ import java.util.regex.*;
 
 public class CheeseAnalyzer {
 
+    public boolean checkQuality(String cheeseData) {
+        return cheeseData.toLowerCase().contains("high quality");
+    }
+
+    public boolean checkAging(String cheeseData) {
+        return cheeseData.toLowerCase().contains("aged");
+    }
+
+    public boolean checkFlavor(String cheeseData) {
+        return cheeseData.toLowerCase().contains("rich");
+    }
+
+    public boolean checkTexture(String cheeseData) {
+        return cheeseData.toLowerCase().contains("smooth");
+    }
+
+    public boolean checkColor(String cheeseData) {
+        return cheeseData.toLowerCase().contains("golden");
+    }
+    
+    public boolean checkSmell(String cheeseData) {
+        return cheeseData.toLowerCase().contains("pleasant");
+    }
     public static void main(String[] args) {
-        // Use the absolute file path
-        String inputFile = "C:\\Users\\ahmed\\Downloads\\cheese_data.csv";
+        String inputFile = "cheese_data.csv";
         String outputFile = "output.txt";
         String missingIdsFile = "missing_ids.txt";
         String cheeseWithoutHeadersFile = "cheese_without_headers.csv";
@@ -30,7 +52,6 @@ public class CheeseAnalyzer {
             List<Integer> missingIds = new ArrayList<>();
 
             for (String[] row : cheeseData.subList(1, cheeseData.size())) {
-                // Count pasteurized and raw milk cheeses
                 if (row.length > 8 && !row[8].isEmpty()) {
                     if (row[8].equalsIgnoreCase("Pasteurized")) {
                         pasteurizedCount++;
@@ -39,7 +60,6 @@ public class CheeseAnalyzer {
                     }
                 }
 
-                // Count organic cheeses with moisture > 41.0%
                 if (row.length > 6 && !row[6].isEmpty() && row[6].matches("\\d+")) {
                     int organic = Integer.parseInt(row[6]);
                     if (row.length > 3 && !row[3].isEmpty()) {
@@ -49,45 +69,40 @@ public class CheeseAnalyzer {
                                 organicHighMoistureCount++;
                             }
                         } catch (NumberFormatException e) {
-                            // Skip this row if moisture is not a number
+                            System.err.println("Invalid moisture value in row: " + Arrays.toString(row));
                         }
                     }
                 }
 
-                // Count milk types
                 if (row.length > 7 && !row[7].isEmpty()) {
                     String milkType = row[7];
                     milkTypeCounts.put(milkType, milkTypeCounts.getOrDefault(milkType, 0) + 1);
                 }
 
-                // Calculate average moisture
                 if (row.length > 3 && !row[3].isEmpty()) {
                     try {
                         totalMoisture += Double.parseDouble(row[3]);
                         moistureCount++;
                     } catch (NumberFormatException e) {
-                        // Skip this row if moisture is not a number
+                        System.err.println("Invalid moisture value in row: " + Arrays.toString(row));
                     }
                 }
 
-                // Count lactic cheeses
                 if (row.length > 4 && !row[4].isEmpty()) {
                     if (Pattern.compile("\\blactic\\b", Pattern.CASE_INSENSITIVE).matcher(row[4]).find()) {
                         lacticCheeseCount++;
                     }
                 }
 
-                // Track existing IDs
                 if (row.length > 0 && !row[0].isEmpty()) {
                     try {
                         existingIds.add(Integer.parseInt(row[0]));
                     } catch (NumberFormatException e) {
-                        // Skip this row if ID is not a number
+                        System.err.println("Invalid ID value in row: " + Arrays.toString(row));
                     }
                 }
             }
 
-            // Find missing IDs
             int minId = existingIds.stream().min(Integer::compare).orElse(0);
             int maxId = existingIds.stream().max(Integer::compare).orElse(0);
             for (int i = minId; i <= maxId; i++) {
@@ -96,7 +111,6 @@ public class CheeseAnalyzer {
                 }
             }
 
-            // Write results to output.txt
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
                 writer.write("Number of cheeses using pasteurized milk: " + pasteurizedCount + "\n");
                 writer.write("Number of cheeses using raw milk: " + rawMilkCount + "\n");
@@ -106,7 +120,6 @@ public class CheeseAnalyzer {
                 writer.write("Number of lactic cheeses: " + lacticCheeseCount + "\n");
             }
 
-            // Write missing IDs to missing_ids.txt
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(missingIdsFile))) {
                 for (int id : missingIds) {
                     writer.write(id + "\n");
